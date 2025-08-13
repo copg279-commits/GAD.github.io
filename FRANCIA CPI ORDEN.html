@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo de Análisis Documental</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col pb-16">
+
+  <header class="bg-blue-600 w-full flex justify-center items-center py-2">
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg">
+      <img
+        src="logogad.png"
+        alt="Logo GAD"
+        class="w-full h-full object-cover block"
+      >
+    </div>
+  </header>
+  
+  <h1 class="text-black text-center mt-6 text-xl font-bold px-4">
+    Consulta Fecha Expedición CPI
+  </h1>
+
+  <div class="w-11/12 max-w-md mx-auto mt-4">
+    <img src="logocpi.png" alt="Logo CPI" class="w-full">
+  </div>
+  
+  <p class="text-center mt-2 px-4">
+    Ingresa un número de orden para estimar la fecha más aproximada.
+  </p>
+
+  <input
+    type="number"
+    id="documento"
+    class="w-11/12 max-w-md mx-auto mt-4 p-2 text-base border border-gray-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-blue-400"
+    placeholder="Número de documento"
+  />
+
+  <button
+    onclick="calcularFecha()"
+    class="block mx-auto mt-4 w-11/12 max-w-md bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-md"
+  >
+    Consultar
+  </button>
+
+  <p id="resultado" class="mt-6 text-lg font-semibold text-gray-800 text-center"></p>
+
+    <div class="mt-8 flex justify-center">
+    <button onclick="window.location.href='_MENU PRINCIPAL_.html'"
+            class="w-11/12 max-w-md p-4 bg-yellow-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-yellow-400 transition">
+        MENÚ PRINCIPAL
+    </button>
+</div>
+  <footer class="mt-auto text-center py-6 bg-gray-200">
+    <hr class="border-t border-gray-400 w-11/12 max-w-md mx-auto mb-4">
+    <p class="font-bold">GRUPO DE ANÁLISIS DOCUMENTAL</p>
+    <p class="font-bold">POLICÍA LOCAL DE ALICANTE</p>
+    <p>GAD - Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // Datos CPI: los puedes pegar aquí o cargar desde fuente externa
+    const datos = [
+            { fecha: new Date("2018-08-06"), numero: 10191919336 },
+            { fecha: new Date("2019-01-07"), numero: 10204026640 },
+            { fecha: new Date("2019-02-26"), numero: 10208196245 },
+            { fecha: new Date("2019-04-09"), numero: 10212267835 },
+            { fecha: new Date("2019-05-01"), numero: 10214149890 },
+            { fecha: new Date("2019-05-21"), numero: 10215810368 },
+            { fecha: new Date("2019-05-27"), numero: 10216323706 },
+            { fecha: new Date("2019-06-21"), numero: 10218610664 },
+            { fecha: new Date("2019-06-22"), numero: 10218644909 },
+            { fecha: new Date("2019-07-02"), numero: 10219524664 },
+            { fecha: new Date("2019-07-11"), numero: 10220479577 },
+            { fecha: new Date("2019-07-13"), numero: 10220647076 },
+            { fecha: new Date("2019-07-16"), numero: 10220899772 },
+            { fecha: new Date("2019-07-22"), numero: 10221357818 },
+            { fecha: new Date("2019-07-26"), numero: 10221830566 },
+            { fecha: new Date("2019-08-22"), numero: 10223787953 },
+            { fecha: new Date("2019-09-05"), numero: 10224960670 },
+            { fecha: new Date("2019-10-16"), numero: 10228479222 },
+            { fecha: new Date("2019-10-22"), numero: 10228996324 },
+            { fecha: new Date("2019-11-25"), numero: 10231852067 },
+            { fecha: new Date("2020-01-02"), numero: 10235029873 },
+            { fecha: new Date("2020-01-08"), numero: 10235471060 },
+            { fecha: new Date("2020-01-09"), numero: 10235600091 },
+            { fecha: new Date("2020-01-23"), numero: 10236739943 },
+            { fecha: new Date("2020-02-03"), numero: 10237757185 },
+            { fecha: new Date("2020-02-07"), numero: 10238209901 },
+            { fecha: new Date("2020-02-22"), numero: 10239507762 },
+            { fecha: new Date("2020-03-09"), numero: 10240903403 },
+            { fecha: new Date("2020-04-07"), numero: 10242041531 },
+            { fecha: new Date("2020-05-08"), numero: 10242811561 },
+            { fecha: new Date("2020-05-12"), numero: 10242997194 },
+            { fecha: new Date("2020-06-05"), numero: 10244827382 },
+            { fecha: new Date("2020-06-10"), numero: 10245324376 },
+            { fecha: new Date("2020-06-13"), numero: 10245637217 },
+            { fecha: new Date("2020-06-17"), numero: 10246068992 },
+            { fecha: new Date("2020-06-23"), numero: 10246653801 },
+            { fecha: new Date("2020-06-26"), numero: 10247085667 },
+            { fecha: new Date("2020-07-01"), numero: 10247636610 },
+            { fecha: new Date("2020-07-06"), numero: 10248147658 },
+            { fecha: new Date("2020-07-13"), numero: 10248843132 },
+            { fecha: new Date("2020-07-15"), numero: 10248966257 },
+            { fecha: new Date("2020-08-01"), numero: 10250840147 },
+            { fecha: new Date("2020-08-08"), numero: 10251462328 },
+            { fecha: new Date("2020-08-11"), numero: 10251637212 },
+            { fecha: new Date("2020-08-13"), numero: 10251836608 },
+            { fecha: new Date("2020-08-20"), numero: 10252367297 },
+            { fecha: new Date("2020-08-23"), numero: 10252575134 },
+            { fecha: new Date("2020-09-09"), numero: 10254066257 },
+            { fecha: new Date("2020-09-09"), numero: 10254113785 },
+            { fecha: new Date("2020-10-30"), numero: 10259051547 },
+            { fecha: new Date("2020-11-06"), numero: 10259742451 },
+            { fecha: new Date("2020-12-04"), numero: 10262045545 },
+            { fecha: new Date("2020-12-18"), numero: 10263236812 },
+            { fecha: new Date("2020-12-22"), numero: 10263572813 },
+            { fecha: new Date("2021-01-03"), numero: 10264289010 },
+            { fecha: new Date("2021-01-04"), numero: 10264353220 },
+            { fecha: new Date("2021-01-05"), numero: 10264508246 },
+            { fecha: new Date("2021-01-07"), numero: 10264691051 },
+            { fecha: new Date("2021-01-08"), numero: 10264747160 },
+            { fecha: new Date("2021-01-09"), numero: 10264862384 },
+            { fecha: new Date("2021-01-18"), numero: 10265621015 },
+            { fecha: new Date("2021-01-20"), numero: 10265865869 },
+            { fecha: new Date("2021-01-21"), numero: 10265941463 },
+            { fecha: new Date("2021-02-09"), numero: 10267606719 },
+            { fecha: new Date("2021-02-18"), numero: 10268504383 },
+            { fecha: new Date("2021-03-05"), numero: 10269996075 },
+            { fecha: new Date("2021-03-09"), numero: 10270305851 },
+            { fecha: new Date("2021-03-17"), numero: 10271084455 },
+            { fecha: new Date("2021-03-22"), numero: 10271563730 },
+            { fecha: new Date("2021-04-12"), numero: 10273599712 },
+            { fecha: new Date("2021-04-22"), numero: 10274543017 },
+            { fecha: new Date("2021-05-11"), numero: 10276289812 },
+            { fecha: new Date("2021-05-22"), numero: 10277206502 },
+            { fecha: new Date("2021-05-25"), numero: 10277393805 },
+            { fecha: new Date("2021-05-26"), numero: 10277484501 },
+            { fecha: new Date("2021-06-01"), numero: 10277989543 },
+            { fecha: new Date("2021-06-08"), numero: 10278679606 },
+            { fecha: new Date("2021-06-11"), numero: 10279068079 },
+            { fecha: new Date("2021-06-14"), numero: 10279270519 },
+            { fecha: new Date("2021-06-18"), numero: 10279664943 },
+            { fecha: new Date("2021-06-22"), numero: 10280032497 },
+            { fecha: new Date("2021-06-24"), numero: 10280310274 },
+            { fecha: new Date("2021-06-24"), numero: 10280317957 },
+            { fecha: new Date("2021-07-01"), numero: 10281012555 },
+            { fecha: new Date("2021-07-07"), numero: 10281514683 },
+            { fecha: new Date("2021-07-08"), numero: 10281650185 },
+            { fecha: new Date("2021-07-13"), numero: 10282072120 },
+            { fecha: new Date("2021-07-19"), numero: 10282518778 },
+            { fecha: new Date("2021-07-22"), numero: 10282770828 },
+            { fecha: new Date("2021-07-28"), numero: 10283357999 },
+            { fecha: new Date("2021-08-05"), numero: 10284024386 },
+            { fecha: new Date("2022-01-12"), numero: 10297084978 },
+            { fecha: new Date("2022-03-16"), numero: 10302495450 },
+            { fecha: new Date("2022-04-23"), numero: 10305626703 },
+            { fecha: new Date("2022-05-27"), numero: 10308406866 },
+            { fecha: new Date("2022-06-07"), numero: 10309210126 },
+            { fecha: new Date("2022-08-18"), numero: 10314648491 },
+            { fecha: new Date("2022-10-18"), numero: 10319310861 },
+            { fecha: new Date("2023-01-28"), numero: 10327299367 },
+            { fecha: new Date("2023-02-18"), numero: 10329065365 },
+            { fecha: new Date("2023-04-28"), numero: 10334952688 },
+            { fecha: new Date("2023-05-19"), numero: 10336478744 },
+            { fecha: new Date("2023-06-29"), numero: 10339923205 },
+            { fecha: new Date("2023-07-26"), numero: 10342116433 },
+            { fecha: new Date("2023-08-04"), numero: 10342907623 },
+            { fecha: new Date("2023-08-09"), numero: 10343174028 },
+            { fecha: new Date("2023-08-04"), numero: 10342907623 },
+            { fecha: new Date("2023-10-13"), numero: 10348194002 },
+            { fecha: new Date("2023-12-14"), numero: 10353304772 },
+            { fecha: new Date("2024-01-26"), numero: 10356641340 },
+            { fecha: new Date("2024-03-26"), numero: 10361681184 },
+            { fecha: new Date("2024-05-22"), numero: 10366201304 },
+            { fecha: new Date("2024-06-07"), numero: 10367709395 },
+            { fecha: new Date("2024-06-10"), numero: 10367861983 },
+            { fecha: new Date("2024-06-13"), numero: 10368242072 },
+            { fecha: new Date("2024-06-27"), numero: 10369442506 },
+            { fecha: new Date("2024-07-02"), numero: 10369898501 },
+            { fecha: new Date("2024-07-08"), numero: 10370326713 },
+            { fecha: new Date("2024-07-16"), numero: 10371050184 },
+            { fecha: new Date("2024-09-17"), numero: 10375789077 },
+            { fecha: new Date("2024-09-27"), numero: 10376679633 },
+            { fecha: new Date("2024-09-29"), numero: 10376759017 },
+            { fecha: new Date("2024-10-17"), numero: 10378401366 },
+            { fecha: new Date("2024-10-23"), numero: 10378831659 },
+            { fecha: new Date("2024-11-04"), numero: 10379771154 },
+            { fecha: new Date("2024-11-07"), numero: 10380060979 },
+            { fecha: new Date("2024-11-10"), numero: 10380290663 },
+            { fecha: new Date("2024-11-13"), numero: 10380556853 },
+            { fecha: new Date("2024-12-27"), numero: 10384296642 },
+            { fecha: new Date("2025-01-03"), numero: 10384726515 },
+            { fecha: new Date("2025-01-14"), numero: 10385643546 },
+            { fecha: new Date("2025-01-24"), numero: 10386510526 },
+            { fecha: new Date("2025-01-27"), numero: 10386668860 },
+            { fecha: new Date("2025-01-28"), numero: 10386778886 },
+            { fecha: new Date("2025-01-29"), numero: 10386855208 },
+            { fecha: new Date("2025-02-02"), numero: 10387250551 },
+            { fecha: new Date("2025-05-21"), numero: 10396620230 },
+            { fecha: new Date("2025-03-12"), numero: 10390614151 },
+            { fecha: new Date("2025-03-21"), numero: 10391450128 },
+            { fecha: new Date("2025-04-09"), numero: 10393216574 },
+            { fecha: new Date("2025-04-28"), numero: 10394843453 },
+            { fecha: new Date("2025-05-15"), numero: 10396192640 },
+            { fecha: new Date("2025-05-30"), numero: 10397448242 },
+            { fecha: new Date("2025-06-11"), numero: 10398352834 },
+            { fecha: new Date("2025-06-24"), numero: 10399349061 },
+            { fecha: new Date("2025-07-10"), numero: 10400893817 },
+            { fecha: new Date("2025-07-23"), numero: 10401844641 },
+            { fecha: new Date("2025-07-28"), numero: 10402260107 }
+        ];
+
+    function interpolarFecha(numero) {
+      const exacto = datos.find(d => d.numero === numero);
+      if (exacto) return exacto.fecha.toLocaleDateString("es-ES");
+
+      const antes = datos.filter(d => d.numero <= numero).pop();
+      const despues = datos.find(d => d.numero > numero);
+
+      if (!antes) return "El número es demasiado bajo.";
+      if (!despues) {
+        const ultimoDato = datos[datos.length - 1];
+        return `<span style="color: red; font-weight: bold;">NO TENEMOS DATOS TAN RECIENTES</span><br>SI BIEN DEBE SER POSTERIOR A:<br>${ultimoDato.fecha.toLocaleDateString("es-ES")}`;
+      }
+
+      const proporcion = (numero - antes.numero) / (despues.numero - antes.numero);
+      const interpolado = antes.fecha.getTime() + proporcion * (despues.fecha.getTime() - antes.fecha.getTime());
+      return new Date(interpolado).toLocaleDateString("es-ES");
+    }
+
+    function calcularFecha() {
+      const numero = parseInt(document.getElementById("documento").value);
+      const resultado = document.getElementById("resultado");
+
+      if (isNaN(numero)) {
+        resultado.innerHTML = "Por favor, ingresa un número válido.";
+        return;
+      }
+
+      const fecha = interpolarFecha(numero);
+      resultado.innerHTML = fecha.includes("NO TENEMOS DATOS") ? fecha : `Fecha estimada: ${fecha}`;
+    }
+
+    // Enter = buscar
+    document.getElementById("documento").addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        calcularFecha();
+      }
+    });
+  </script>
+</body>
+</html>

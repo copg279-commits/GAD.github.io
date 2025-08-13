@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canje de Permisos de Conducir con España</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media (max-width: 767px) {
+            .full-content {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col pb-16">
+
+<header class="bg-blue-600 w-full flex justify-center items-center py-2">
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg">
+        <img
+            src="logogad.png"
+            alt="Logo GAD"
+            class="w-full h-full object-cover block"
+        >
+    </div>
+</header>
+
+<h1 class="text-black text-center mt-6 text-xl font-bold px-4">
+    Convenio de Canje de Permisos de Conducir con España
+</h1>
+
+<p class="text-center mt-2 px-4">
+    Selecciona un país para ver si tiene convenio de canje de permiso de conducir con España y la fecha de entrada en vigor.
+</p>
+
+<select id="paises" onchange="mostrarConvenio()"
+    class="block mx-auto mt-4 p-2 text-base w-11/12 max-w-md border border-gray-300 rounded-lg">
+    <option value="">-- Seleccionar país --</option>
+    <option value="Andorra">Andorra</option>
+    <option value="Argelia">Argelia</option>
+    <option value="Argentina">Argentina</option>
+    <option value="Bolivia">Bolivia</option>
+    <option value="Brasil">Brasil</option>
+    <option value="Chile">Chile</option>
+    <option value="Colombia">Colombia</option>
+    <option value="Corea del Sur">Corea del Sur</option>
+    <option value="Costa Rica">Costa Rica</option>
+    <option value="Ecuador">Ecuador</option>
+    <option value="El Salvador">El Salvador</option>
+    <option value="Filipinas">Filipinas</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Guatemala">Guatemala</option>
+    <option value="Honduras">Honduras</option>
+    <option value="Japón">Japón</option>
+    <option value="Macedonia del Norte">Macedonia del Norte</option>
+    <option value="Marruecos">Marruecos</option>
+    <option value="Mónaco">Mónaco</option>
+    <option value="Moldavia">Moldavia</option>
+    <option value="Nicaragua">Nicaragua</option>
+    <option value="Nueva Zelanda">Nueva Zelanda</option>
+    <option value="Panamá">Panamá</option>
+    <option value="Paraguay">Paraguay</option>
+    <option value="Perú">Perú</option>
+    <option value="Reino Unido e Irlanda del Norte">Reino Unido e Irlanda del Norte</option>
+    <option value="República Dominicana">República Dominicana</option>
+    <option value="Serbia">Serbia</option>
+    <option value="Suiza">Suiza</option>
+    <option value="Túnez">Túnez</option>
+    <option value="Turquía">Turquía</option>
+    <option value="Ucrania">Ucrania</option>
+    <option value="Uruguay">Uruguay</option>
+    <option value="Venezuela">Venezuela</option>
+    <option value="Sin Convenio">País sin convenio (ejemplo)</option>
+</select>
+
+<div id="resultado" class="w-11/12 max-w-md mx-auto mt-6"></div>
+
+<div class="mt-8 flex justify-center">
+    <button onclick="window.location.href='_MENU PRINCIPAL_.html'"
+            class="w-11/12 max-w-md p-4 bg-yellow-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-yellow-400 transition">
+        MENÚ PRINCIPAL
+    </button>
+</div>
+
+<footer class="mt-auto text-center py-6 bg-gray-200">
+    <hr class="border-t border-gray-400 w-11/12 max-w-md mx-auto mb-4">
+    <p class="font-bold">GRUPO DE ANÁLISIS DOCUMENTAL</p>
+    <p class="font-bold">POLICÍA LOCAL DE ALICANTE</p>
+    <p>GAD - Todos los derechos reservados</p>
+</footer>
+
+<script>
+    const convenios = {
+        "Andorra": { tieneConvenio: true, fecha: "03/02/2000" },
+        "Argelia": { tieneConvenio: true, fecha: "06/10/2000" },
+        "Argentina": { tieneConvenio: true, fecha: "31/07/2002" },
+        "Bolivia": { tieneConvenio: true, fecha: "23/11/2007" },
+        "Brasil": { tieneConvenio: true, fecha: "07/04/2009" },
+        "Chile": { tieneConvenio: true, fecha: "10/06/2005" },
+        "Colombia": { tieneConvenio: true, fecha: "31/07/2003" },
+        "Corea del Sur": { tieneConvenio: true, fecha: "14/01/2000" },
+        "Costa Rica": { tieneConvenio: true, fecha: "10/08/2020" },
+        "Ecuador": { tieneConvenio: true, fecha: "25/09/2003" },
+        "El Salvador": { tieneConvenio: true, fecha: "24/06/2009" },
+        "Filipinas": { tieneConvenio: true, fecha: "21/09/2008" },
+        "Georgia": { tieneConvenio: true, fecha: "29/09/2024" },
+        "Guatemala": { tieneConvenio: true, fecha: "21/09/2008" },
+        "Honduras": { tieneConvenio: true, fecha: "26/11/2024" },
+        "Japón": { tieneConvenio: true, fecha: "21/01/2000" },
+        "Macedonia del Norte": { tieneConvenio: true, fecha: "27/12/2011" },
+        "Marruecos": { tieneConvenio: true, fecha: "08/06/2004" },
+        "Mónaco": { tieneConvenio: true, fecha: "13/11/2013" },
+        "Moldavia": { tieneConvenio: true, fecha: "29/09/2024" },
+        "Nicaragua": { tieneConvenio: true, fecha: "04/06/2013" },
+        "Nueva Zelanda": { tieneConvenio: true, fecha: "02/06/2023" },
+        "Panamá": { tieneConvenio: true, fecha: "11/07/2014" },
+        "Paraguay": { tieneConvenio: true, fecha: "28/10/2007" },
+        "Perú": { tieneConvenio: true, fecha: "20/12/2007" },
+        "Reino Unido e Irlanda del Norte": { tieneConvenio: true, fecha: "16/03/2023" },
+        "República Dominicana": { tieneConvenio: true, fecha: "15/09/2005" },
+        "Serbia": { tieneConvenio: true, fecha: "22/07/2024" },
+        "Suiza": { tieneConvenio: true, fecha: "11/11/1997" },
+        "Túnez": { tieneConvenio: true, fecha: "27/07/2011" },
+        "Turquía": { tieneConvenio: true, fecha: "29/04/2011" },
+        "Ucrania": { tieneConvenio: true, fecha: "10/05/2011" },
+        "Uruguay": { tieneConvenio: true, fecha: "29/07/2009" },
+        "Venezuela": { tieneConvenio: false, fecha: "", fechaSuspension: "2021" },
+        "Sin Convenio": { tieneConvenio: false, fecha: "" }
+    };
+
+    function mostrarConvenio() {
+        const pais = document.getElementById('paises').value;
+        const resultado = document.getElementById('resultado');
+        const info = convenios[pais];
+
+        if (pais && info) {
+            if (info.tieneConvenio) {
+                resultado.innerHTML = `
+                    <div class="p-4 rounded-lg bg-green-100 border border-green-400">
+                        <p class="text-green-700 text-center font-bold">
+                            ¡Sí! ${pais} tiene convenio de canje de permiso de conducir con España.
+                        </p>
+                        <p class="text-green-700 text-center mt-2">
+                            Fecha de entrada en vigor: <span class="font-semibold">${info.fecha}</span>
+                        </p>
+                    </div>
+                `;
+            } else {
+                let mensajeAdicional = '';
+                if (info.fechaSuspension) {
+                    mensajeAdicional = `El canje fue suspendido en ${info.fechaSuspension}.`;
+                }
+
+                resultado.innerHTML = `
+                    <div class="p-4 rounded-lg bg-red-100 border border-red-400">
+                        <p class="text-red-700 text-center font-bold">
+                            No, ${pais} no tiene un convenio de canje con España.
+                        </p>
+                        <p class="text-red-700 text-center mt-2">
+                            ${mensajeAdicional} Deberá obtener un nuevo permiso de conducir español.
+                        </p>
+                    </div>
+                `;
+            }
+        } else {
+            resultado.innerHTML = "";
+        }
+    }
+</script>
+
+</body>
+</html>

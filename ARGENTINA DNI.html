@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Estimador de Nacimiento por DNI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col pb-16">
+
+  <header class="bg-blue-600 w-full flex justify-center items-center py-2">
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg">
+      <img
+        src="logogad.png"
+        alt="Logo GAD"
+        class="w-full h-full object-cover block"
+      >
+    </div>
+  </header>
+
+  <h1 class="text-black text-center mt-6 text-xl font-bold px-4">
+    Estimador de Nacimiento por DNI o Nº de Licencia
+  </h1>
+
+  <p class="text-center mt-2 px-4">
+    Ingresa un número de <span class="text-red-600 font-bold">DNI argentino</span> (nacional)
+  </p>
+
+  <input
+    type="number"
+    id="dniInput"
+    placeholder="Ej: 35273789"
+    class="block mx-auto mt-4 p-2 text-base w-11/12 max-w-md border border-gray-300 rounded-lg text-center"
+  >
+
+  <button
+    onclick="calcularNacimiento()"
+    class="block mx-auto mt-4 w-11/12 max-w-md bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-md"
+  >
+    Calcular fecha nacimiento
+  </button>
+
+  <div id="resultado" class="w-11/12 max-w-md mx-auto mt-6 font-bold text-lg text-center"></div>
+
+  <div class="mt-8 flex justify-center">
+    <button onclick="window.location.href='_MENU PRINCIPAL_.html'"
+            class="w-11/12 max-w-md p-4 bg-yellow-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-yellow-400 transition">
+        MENÚ PRINCIPAL
+    </button>
+  </div>
+
+  <footer class="mt-auto text-center py-6 bg-gray-200">
+    <hr class="border-t border-gray-400 w-11/12 max-w-md mx-auto mb-4">
+    <p class="font-bold">GRUPO DE ANÁLISIS DOCUMENTAL</p>
+    <p class="font-bold">POLICÍA LOCAL DE ALICANTE</p>
+    <p>GAD - Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    const baseDatos = [
+    { dni: 4743184, year: 1944, month: 05 },
+      { dni: 8033204, year: 1947, month: 03 },
+      { dni: 10000000, year: 1951, month: 01 },
+      { dni: 10945596, year: 1954, month: 01 },
+      { dni: 11967224, year: 1958, month: 03 },
+      { dni: 12450558, year: 1958, month: 10 },
+      { dni: 14894186, year: 1962, month: 02 },
+      { dni: 16396674, year: 1964, month: 01 },
+      { dni: 16865406, year: 1965, month: 01 },
+      { dni: 17372642, year: 1965, month: 11 },
+      { dni: 18285212, year: 1967, month: 03 },
+      { dni: 18616399, year: 1967, month: 05 },
+      { dni: 20031878, year: 1968, month: 05 },
+      { dni: 20273116, year: 1968, month: 11 },
+      { dni: 20941022, year: 1969, month: 05 },
+      { dni: 21486815, year: 1970, month: 04 },
+      { dni: 21604131, year: 1970, month: 05 },
+      { dni: 21688619, year: 1970, month: 06 },
+      { dni: 22149391, year: 1971, month: 12 },
+      { dni: 22550638, year: 1972, month: 02 },
+      { dni: 22903901, year: 1973, month: 01 },
+      { dni: 23892110, year: 1974, month: 03 },
+      { dni: 24017801, year: 1975, month: 04 },
+      { dni: 24460053, year: 1975, month: 05 },
+      { dni: 24836144, year: 1975, month: 08 },
+      { dni: 25485014, year: 1976, month: 05 },
+      { dni: 25779038, year: 1977, month: 01 },
+      { dni: 26090518, year: 1977, month: 10 },
+      { dni: 26343516, year: 1978, month: 04 },
+      { dni: 26735515, year: 1978, month: 10 },
+      { dni: 27154245, year: 1979, month: 05 },
+      { dni: 27694582, year: 1980, month: 01 },
+      { dni: 28416666, year: 1981, month: 02 },
+      { dni: 28989502, year: 1981, month: 11 },
+      { dni: 29505963, year: 1982, month: 08 },
+      { dni: 30048100, year: 1983, month: 08 },
+      { dni: 30600000, year: 1984, month: 07 },
+      { dni: 31099236, year: 1985, month: 02 },
+      { dni: 31700200, year: 1986, month: 01 },
+      { dni: 32200000, year: 1986, month: 12 },
+      { dni: 33000000, year: 1987, month: 06 },
+      { dni: 33500000, year: 1988, month: 02 },
+      { dni: 34100000, year: 1988, month: 08 },
+      { dni: 34500000, year: 1989, month: 01 },
+      { dni: 35000000, year: 1989, month: 06 },
+      { dni: 35500000, year: 1990, month: 01 },
+      { dni: 36000000, year: 1990, month: 06 },
+      { dni: 36500000, year: 1991, month: 01 },
+      { dni: 37000000, year: 1991, month: 06 },
+      { dni: 37500000, year: 1992, month: 01 },
+      { dni: 38000000, year: 1992, month: 06 },
+      { dni: 38500000, year: 1993, month: 01 },
+      { dni: 39000000, year: 1993, month: 06 },
+      { dni: 39500000, year: 1994, month: 01 },
+      { dni: 40000000, year: 1994, month: 06 },
+      { dni: 40500000, year: 1995, month: 01 },
+      { dni: 41000000, year: 1995, month: 06 },
+      { dni: 41500000, year: 1996, month: 01 },
+      { dni: 42000000, year: 1996, month: 06 },
+      { dni: 42500000, year: 1997, month: 01 },
+      { dni: 43000000, year: 1997, month: 06 },
+      { dni: 43500000, year: 1998, month: 01 },
+      { dni: 44000000, year: 1998, month: 06 },
+      { dni: 44500000, year: 1999, month: 01 },
+      { dni: 45000000, year: 1999, month: 06 },
+      { dni: 45500000, year: 2000, month: 01 },
+      { dni: 46000000, year: 2000, month: 06 },
+      { dni: 46500000, year: 2001, month: 01 },
+      { dni: 47000000, year: 2001, month: 06 },
+      { dni: 47500000, year: 2002, month: 01 },
+      { dni: 48000000, year: 2002, month: 06 },
+      { dni: 48500000, year: 2003, month: 01 },
+      { dni: 49000000, year: 2003, month: 06 },
+      { dni: 49500000, year: 2004, month: 01 },
+      { dni: 50000000, year: 2004, month: 06 }
+    ];
+
+    function calcularNacimiento() {
+      const dni = document.getElementById("dniInput").value;
+      const resultado = document.getElementById("resultado");
+      
+      const buscarEnBase = (dniNum) => {
+        let nacimientoEstimado = null;
+        let edadEstimada = null;
+        
+        for (let i = 0; i < baseDatos.length; i++) {
+          if (dniNum < baseDatos[i].dni) {
+            if (i > 0) {
+              const prev = baseDatos[i - 1];
+              const next = baseDatos[i];
+              
+              // Interpolación de la fecha
+              const diffDni = next.dni - prev.dni;
+              const diffYear = next.year - prev.year;
+              const diffMonth = next.month - prev.month;
+              
+              const monthsBetween = diffYear * 12 + diffMonth;
+              const dniDelta = dniNum - prev.dni;
+              
+              if (diffDni > 0) {
+                const mesesEstimados = (dniDelta / diffDni) * monthsBetween;
+                const totalMonths = (prev.year * 12 + prev.month) + mesesEstimados;
+                
+                const estimatedYear = Math.floor(totalMonths / 12);
+                const estimatedMonth = Math.round(totalMonths % 12);
+                
+                nacimientoEstimado = `Año: ${estimatedYear}, Mes: ${estimatedMonth}`;
+                
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const currentMonth = currentDate.getMonth() + 1; // getMonth() devuelve 0-11
+                
+                let calculatedAge = currentYear - estimatedYear;
+                if (currentMonth < estimatedMonth) {
+                  calculatedAge--;
+                }
+                edadEstimada = calculatedAge;
+              } else {
+                nacimientoEstimado = `Año: ${prev.year}, Mes: ${prev.month}`;
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                edadEstimada = currentYear - prev.year;
+              }
+            }
+            break;
+          }
+        }
+        
+        return { nacimientoEstimado, edadEstimada };
+      };
+      
+      const dniNum = parseInt(dni, 10);
+
+      if (isNaN(dniNum) || dniNum <= 0) {
+        resultado.textContent = "Por favor, ingresa un número de DNI válido.";
+        return;
+      }
+      
+      const { nacimientoEstimado, edadEstimada } = buscarEnBase(dniNum);
+
+      if (nacimientoEstimado) {
+        resultado.innerHTML = `
+          <p><strong>DNI Nº:</strong> ${dniNum}</p>
+          <p><strong>Fecha estimada de Nacimiento:</strong> ${nacimientoEstimado}</p>
+          <p><strong>Edad estimada:</strong> ${edadEstimada} años</p>
+          <p class="text-red-600 mt-2">Este cálculo es una estimación. Puede variar por diversos factores.</p>
+        `;
+      } else {
+        resultado.textContent = "Número de DNI fuera de rango para la estimación. No hay suficientes datos de referencia.";
+      }
+    }
+    
+    document.getElementById("dniInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            calcularNacimiento();
+        }
+    });
+  </script>
+</body>
+</html>

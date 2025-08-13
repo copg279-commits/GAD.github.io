@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguro Obligatorio de Vehículo por País</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media (max-width: 767px) {
+            .full-content {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col pb-16">
+
+<header class="bg-blue-600 w-full flex justify-center items-center py-2">
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg">
+        <img
+            src="logogad.png"
+            alt="Logo GAD"
+            class="w-full h-full object-cover block"
+        >
+    </div>
+</header>
+
+<h1 class="text-black text-center mt-6 text-xl font-bold px-4">
+    Requisitos de Seguro Obligatorio de Vehículo
+</h1>
+
+<p class="text-center mt-2 px-4">
+    Selecciona un país para ver el tipo de seguro obligatorio que requiere según OFESAUTO.
+</p>
+
+<select id="paises" onchange="mostrarSeguro()"
+    class="block mx-auto mt-4 p-2 text-base w-11/12 max-w-md border border-gray-300 rounded-lg">
+    <option value="">-- Seleccionar país --</option>
+    <option value="Albania">Albania</option>
+    <option value="Alemania">Alemania</option>
+    <option value="Andorra">Andorra</option>
+    <option value="Austria">Austria</option>
+    <option value="Azerbaiyán">Azerbaiyán</option>
+    <option value="Bélgica">Bélgica</option>
+    <option value="Bielorrusia">Bielorrusia</option>
+    <option value="Bosnia-Herzegovina">Bosnia-Herzegovina</option>
+    <option value="Bulgaria">Bulgaria</option>
+    <option value="Chipre">Chipre</option>
+    <option value="Croacia">Croacia</option>
+    <option value="Dinamarca">Dinamarca</option>
+    <option value="Eslovaquia">Eslovaquia</option>
+    <option value="Eslovenia">Eslovenia</option>
+    <option value="España">España</option>
+    <option value="Estonia">Estonia</option>
+    <option value="Finlandia">Finlandia</option>
+    <option value="Francia">Francia</option>
+    <option value="Grecia">Grecia</option>
+    <option value="Holanda">Holanda</option>
+    <option value="Hungría">Hungría</option>
+    <option value="Irán">Irán</option>
+    <option value="Irlanda">Irlanda</option>
+    <option value="Islandia">Islandia</option>
+    <option value="Israel">Israel</option>
+    <option value="Italia">Italia</option>
+    <option value="Letonia">Letonia</option>
+    <option value="Liechtenstein">Liechtenstein</option>
+    <option value="Lituania">Lituania</option>
+    <option value="Luxemburgo">Luxemburgo</option>
+    <option value="Macedonia del Norte">Macedonia del Norte</option>
+    <option value="Malta">Malta</option>
+    <option value="Marruecos">Marruecos</option>
+    <option value="Moldavia">Moldavia</option>
+    <option value="Mónaco">Mónaco</option>
+    <option value="Montenegro">Montenegro</option>
+    <option value="Noruega">Noruega</option>
+    <option value="Polonia">Polonia</option>
+    <option value="Portugal">Portugal</option>
+    <option value="Reino Unido">Reino Unido</option>
+    <option value="República Checa">República Checa</option>
+    <option value="Rumanía">Rumanía</option>
+    <option value="Rusia">Rusia</option>
+    <option value="Serbia">Serbia</option>
+    <option value="Suecia">Suecia</option>
+    <option value="Suiza">Suiza</option>
+    <option value="Túnez">Túnez</option>
+    <option value="Turquía">Turquía</option>
+    <option value="Ucrania">Ucrania</option>
+</select>
+
+<p class="text-center mt-2 px-4 text-sm text-gray-700">
+    Si el país no está en la lista se requiere <span class="font-bold text-red-600">SEFRÓN</span>
+</p>
+
+<div id="resultado" class="w-11/12 max-w-md mx-auto mt-6"></div>
+
+    <div class="mt-8 flex justify-center">
+    <button onclick="window.location.href='_MENU PRINCIPAL_.html'"
+            class="w-11/12 max-w-md p-4 bg-yellow-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-yellow-400 transition">
+        MENÚ PRINCIPAL
+    </button>
+</div>
+
+<footer class="mt-auto text-center py-6 bg-gray-200">
+    <hr class="border-t border-gray-400 w-11/12 max-w-md mx-auto mb-4">
+    <p class="font-bold">GRUPO DE ANÁLISIS DOCUMENTAL</p>
+    <p class="font-bold">POLICÍA LOCAL DE ALICANTE</p>
+    <p>GAD - Todos los derechos reservados</p>
+</footer>
+
+<script>
+    const requisitos = {
+        // Datos basados en el listado de OFESAUTO y la confirmación del usuario
+        "Albania": { tipoSeguro: "CIS - Carta Verde", color: "green" },
+        "Alemania": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Andorra": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Austria": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Azerbaiyán": { tipoSeguro: "CIS - Carta Verde", color: "green" },
+        "Bélgica": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Bielorrusia": { tipoSeguro: "Sefrón (Seguro de Frontera)", color: "red" },
+        "Bosnia-Herzegovina": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Bulgaria": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Chipre": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Croacia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Dinamarca": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Eslovaquia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Eslovenia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "España": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Estonia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Finlandia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Francia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Grecia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Holanda": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Hungría": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Irán": { tipoSeguro: "CIS - Carta Verde", color: "green" },
+        "Irlanda": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Islandia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Israel": { tipoSeguro: "Sefrón (Seguro de Frontera)", color: "red" },
+        "Italia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Letonia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Liechtenstein": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Lituania": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Luxemburgo": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Macedonia del Norte": { tipoSeguro: "CIS - Carta Verde", color: "green" },
+        "Malta": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Marruecos": { tipoSeguro: "CIS - Carta Verde", color: "green" },
+        "Moldavia": { tipoSeguro: "CIS - Carta Verde", color: "green" },
+        "Mónaco": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Montenegro": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Noruega": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Polonia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Portugal": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Reino Unido": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "República Checa": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Rumanía": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Rusia": { tipoSeguro: "Sefrón (Seguro de Frontera)", color: "red" },
+        "Serbia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Suecia": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Suiza": { tipoSeguro: "Seguro ordinario", color: "blue" },
+        "Túnez": { tipoSeguro: "CIS - Carta Verde", color: "green" },
+        "Turquía": { tipoSeguro: "CIS - Carta Verde", color: "green" },
+        "Ucrania": { tipoSeguro: "CIS - Carta Verde", color: "green" }
+    };
+
+    function mostrarSeguro() {
+        const pais = document.getElementById('paises').value;
+        const resultado = document.getElementById('resultado');
+        const info = requisitos[pais];
+
+        if (pais && info) {
+            let colorClase = '';
+            let textColorClase = '';
+            
+            if (info.color === "green") {
+                colorClase = 'bg-green-100 border border-green-400';
+                textColorClase = 'text-green-700';
+            } else if (info.color === "blue") {
+                colorClase = 'bg-blue-100 border border-blue-400';
+                textColorClase = 'text-blue-700';
+            } else if (info.color === "red") {
+                colorClase = 'bg-red-100 border border-red-400';
+                textColorClase = 'text-red-700';
+            }
+
+            resultado.innerHTML = `
+                <div class="p-4 rounded-lg ${colorClase}">
+                    <p class="text-center font-bold ${textColorClase}">
+                        ${pais} necesita:
+                    </p>
+                    <p class="text-center mt-2 font-semibold ${textColorClase}">
+                        ${info.tipoSeguro}
+                    </p>
+                </div>
+            `;
+        } else {
+            resultado.innerHTML = "";
+        }
+    }
+</script>
+
+</body>
+</html>

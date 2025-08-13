@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permiso Internacional de Conducir (PIC)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media (max-width: 767px) {
+            .full-content {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<header class="bg-blue-600 w-full flex justify-center items-center py-2">
+    <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg">
+        <img
+            src="logogad.png"
+            alt="Logo GAD"
+            class="w-full h-full object-cover block"
+        >
+    </div>
+</header>
+
+<h1 class="text-black text-center mt-6 text-xl font-bold px-4">
+    Países que pueden expedir el Permiso Internacional de Conducir (PIC)
+</h1>
+
+<p class="text-center mt-2 px-4">
+    Selecciona un país para verificar si puede emitir el Permiso Internacional de Conducir (PIC).
+</p>
+
+<select id="paises" onchange="mostrarConvenio()"
+    class="block mx-auto mt-4 p-2 text-base w-11/12 max-w-md border border-gray-300 rounded-lg">
+    <option value="">-- Seleccionar país --</option>
+    <option value="Albania-Ginebra">Albania</option>
+    <option value="Argelia">Argelia</option>
+    <option value="Argentina">Argentina</option>
+    <option value="Australia">Australia</option>
+    <option value="Austria-Ginebra">Austria</option>
+    <option value="Bangladesh">Bangladesh</option>
+    <option value="Barbados">Barbados</option>
+    <option value="Bélgica-Ginebra">Bélgica</option>
+    <option value="Benin">Benin</option>
+    <option value="Botswana">Botswana</option>
+    <option value="Brunei">Brunei</option>
+    <option value="Bulgaria-Ginebra">Bulgaria</option>
+    <option value="Burkina Faso">Burkina Faso</option>
+    <option value="Camboya">Camboya</option>
+    <option value="Canadá">Canadá</option>
+    <option value="Chile">Chile</option>
+    <option value="Chipre">Chipre</option>
+    <option value="Congo">Congo</option>
+    <option value="Corea del Sur">Corea del Sur</option>
+    <option value="Costa de Marfil-Ginebra">Costa de Marfil</option>
+    <option value="Croacia-Ginebra">Croacia</option>
+    <option value="Cuba-Ginebra">Cuba</option>
+    <option value="Dinamarca-Ginebra">Dinamarca</option>
+    <option value="Ecuador">Ecuador</option>
+    <option value="Egipto">Egipto</option>
+    <option value="Emiratos Árabes-Ginebra">Emiratos Árabes</option>
+    <option value="Eslovaquia-Ginebra">Eslovaquia</option>
+    <option value="Eslovenia-Ginebra">Eslovenia</option>
+    <option value="España">España</option>
+    <option value="Estados Unidos">Estados Unidos</option>
+    <option value="Filipinas-Ginebra">Filipinas</option>
+    <option value="Finlandia-Ginebra">Finlandia</option>
+    <option value="Fiyi">Fiyi</option>
+    <option value="Francia-Ginebra">Francia</option>
+    <option value="Georgia-Ginebra">Georgia</option>
+    <option value="Ghana">Ghana</option>
+    <option value="Grecia-Ginebra">Grecia</option>
+    <option value="Guatemala">Guatemala</option>
+    <option value="Haití">Haití</option>
+    <option value="Hungría-Ginebra">Hungría</option>
+    <option value="India">India</option>
+    <option value="Irlanda">Irlanda</option>
+    <option value="Islandia">Islandia</option>
+    <option value="Israel-Ginebra">Israel</option>
+    <option value="Italia-Ginebra">Italia</option>
+    <option value="Jamaica">Jamaica</option>
+    <option value="Japón">Japón</option>
+    <option value="Jordania">Jordania</option>
+    <option value="Kirguistán-Ginebra">Kirguistán</option>
+    <option value="Laos">Laos</option>
+    <option value="Líbano">Líbano</option>
+    <option value="Lesoto">Lesoto</option>
+    <option value="Liechtenstein-Ginebra">Liechtenstein</option>
+    <option value="Lituania-Ginebra">Lituania</option>
+    <option value="Luxemburgo-Ginebra">Luxemburgo</option>
+    <option value="Macedonia del Norte-Viena">Macedonia del Norte</option>
+    <option value="Madagascar">Madagascar</option>
+    <option value="Malawi">Malawi</option>
+    <option value="Malasia">Malasia</option>
+    <option value="Mali">Mali</option>
+    <option value="Malta">Malta</option>
+    <option value="Marruecos-Ginebra">Marruecos</option>
+    <option value="Moldova">República de Moldova</option>
+    <option value="Mónaco-Ginebra">Mónaco</option>
+    <option value="Montenegro-Ginebra">Montenegro</option>
+    <option value="Namibia">Namibia</option>
+    <option value="Níger-Ginebra">Níger</option>
+    <option value="Nigeria-Ginebra">Nigeria</option>
+    <option value="Noruega-Ginebra">Noruega</option>
+    <option value="Nueva Zelanda">Nueva Zelanda</option>
+    <option value="Países Bajos">Países Bajos</option>
+    <option value="Paraguay">Paraguay</option>
+    <option value="Papúa Nueva Guinea">Papúa Nueva Guinea</option>
+    <option value="Perú-Ginebra">Perú</option>
+    <option value="Polonia-Ginebra">Polonia</option>
+    <option value="Portugal-Ginebra">Portugal</option>
+    <option value="Reino Unido-Ginebra">Reino Unido</option>
+    <option value="República Árabe Siria">República Árabe Siria</option>
+    <option value="República Centroafricana-Ginebra">República Centroafricana</option>
+    <option value="República Checa-Ginebra">República Checa</option>
+    <option value="República Democrática del Congo-Ginebra">República Democrática del Congo</option>
+    <option value="República Dominicana">República Dominicana</option>
+    <option value="Rumania-Ginebra">Rumania</option>
+    <option value="Rusia-Ginebra">Rusia</option>
+    <option value="Ruanda">Ruanda</option>
+    <option value="Santa Sede">Santa Sede</option>
+    <option value="San Marino-Ginebra">San Marino</option>
+    <option value="Senegal-Ginebra">Senegal</option>
+    <option value="Serbia-Ginebra">Serbia</option>
+    <option value="Sierra Leona">Sierra Leona</option>
+    <option value="Singapur">Singapur</option>
+    <option value="Sri Lanka">Sri Lanka</option>
+    <option value="Sudáfrica-Ginebra">Sudáfrica</option>
+    <option value="Suecia-Ginebra">Suecia</option>
+    <option value="Suiza-Ginebra">Suiza</option>
+    <option value="Tailandia-Ginebra">Tailandia</option>
+    <option value="Togo">Togo</option>
+    <option value="Trinidad y Tobago">Trinidad y Tobago</option>
+    <option value="Túnez-Ginebra">Túnez</option>
+    <option value="Turquía-Ginebra">Turquía</option>
+    <option value="Uganda">Uganda</option>
+    <option value="Uruguay-Viena">Uruguay</option>
+    <option value="Venezuela">Venezuela</option>
+    <option value="Vietnam-Ginebra">Vietnam</option>
+    <option value="Zimbabue-Ginebra">Zimbabue</option>
+    <option value="Alemania">Alemania</option>
+    <option value="Arabia Saudita">Arabia Saudita</option>
+    <option value="Armenia">Armenia</option>
+    <option value="Azerbaiyán">Azerbaiyán</option>
+    <option value="Bahamas">Bahamas</option>
+    <option value="Baréin">Baréin</option>
+    <option value="Bielorrusia">Bielorrusia</option>
+    <option value="Birmania">Birmania</option>
+    <option value="Bosnia y Herzegovina">Bosnia y Herzegovina</option>
+    <option value="Brasil">Brasil</option>
+    <option value="Cabo Verde">Cabo Verde</option>
+    <option value="Estonia">Estonia</option>
+    <option value="Etiopía">Etiopía</option>
+    <option value="Guayana">Guayana</option>
+    <option value="Honduras">Honduras</option>
+    <option value="Irán">Irán</option>
+    <option value="Irak">Irak</option>
+    <option value="Irlanda del Norte">Irlanda del Norte</option>
+    <option value="Kazajstán">Kazajstán</option>
+    <option value="Kenia">Kenia</option>
+    <option value="Kuwait">Kuwait</option>
+    <option value="Letonia">Letonia</option>
+    <option value="Liberia">Liberia</option>
+    <option value="Mongolia">Mongolia</option>
+    <option value="Omán">Omán</option>
+    <option value="Pakistán">Pakistán</option>
+    <option value="Palestina">Palestina</option>
+    <option value="Qatar">Qatar</option>
+    <option value="Seychelles">Seychelles</option>
+    <option value="Tayikistán">Tayikistán</option>
+    <option value="Turkmenistán">Turkmenistán</option>
+    <option value="Ucrania">Ucrania</option>
+    <option value="Uzbekistán">Uzbekistán</option>
+</select>
+
+<div id="resultado" class="w-11/12 max-w-md mx-auto mt-6"></div>
+
+<div class="w-11/12 max-w-md mx-auto mt-6 flex flex-col space-y-4">
+    <a href="https://treaties.un.org/Pages/ViewDetailsV.aspx?src=TREATY&mtdsg_no=XI-B-1&chapter=11&Temp=mtdsg5&clang=_en#6" target="_blank"
+        class="flex-1 text-center w-full px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center justify-center">
+        Convenio de Ginebra actualizado
+    </a>
+    <a href="https://treaties.un.org/pages/ViewDetailsIII.aspx?src=TREATY&mtdsg_no=XI-B-19&chapter=11" target="_blank"
+        class="flex-1 text-center w-full px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center justify-center">
+        Convenio de Viena actualizado
+    </a>
+</div>
+
+<div class="w-11/12 max-w-md mx-auto mt-6 py-2 px-4 bg-red-600 text-white text-center font-bold rounded-lg flex items-center justify-center">
+    Si el país no está en la lista, no puede emitir PIC
+</div>
+
+    <div class="mt-8 flex justify-center">
+    <button onclick="window.location.href='_MENU PRINCIPAL_.html'"
+            class="w-11/12 max-w-md p-4 bg-yellow-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-yellow-400 transition">
+        MENÚ PRINCIPAL
+    </button>
+</div>
+
+<footer class="mt-auto text-center py-6 bg-gray-200">
+    <hr class="border-t border-gray-400 w-11/12 max-w-md mx-auto mb-4">
+    <p class="font-bold">GRUPO DE ANÁLISIS DOCUMENTAL</p>
+    <p class="font-bold">POLICÍA LOCAL DE ALICANTE</p>
+    <p>GAD - Todos los derechos reservados</p>
+</footer>
+
+<script>
+    const paisesGinebra = [
+        "Albania", "Argelia", "Argentina", "Australia", "Austria", "Bangladesh", "Barbados", "Bélgica", "Benin", "Botswana", "Brunei", "Bulgaria", "Burkina Faso", "Camboya", "Canadá", "Chile", "Chipre", "Congo", "Corea del Sur", "Costa de Marfil", "Croacia", "Cuba", "Dinamarca", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Filipinas", "Finlandia", "Fiyi", "Francia", "Georgia", "Ghana", "Grecia", "Guatemala", "Haití", "Hungría", "India", "Irlanda", "Islandia", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kirguistán", "Laos", "Líbano", "Lesoto", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Madagascar", "Malawi", "Malasia", "Mali", "Malta", "Marruecos", "Mónaco", "Montenegro", "Namibia", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Países Bajos", "Paraguay", "Papúa Nueva Guinea", "Perú", "Polonia", "Portugal", "Reino Unido", "República Árabe Siria", "República Centroafricana", "República Checa", "República Democrática del Congo", "República Dominicana", "Rumania", "Rusia", "Ruanda", "Santa Sede", "San Marino", "Senegal", "Serbia", "Sierra Leona", "Singapur", "Sri Lanka", "Sudáfrica", "Suecia", "Suiza", "Tailandia", "Togo", "Trinidad y Tobago", "Túnez", "Turquía", "Uganda", "Venezuela", "Vietnam", "Zimbabue"
+    ];
+
+    const paisesViena = [
+        "Albania", "Alemania", "Armenia", "Austria", "Arabia Saudita", "Azerbaiyán", "Bahamas", "Baréin", "Bielorrusia", "Bélgica", "Birmania", "Bosnia y Herzegovina", "Brasil", "Bulgaria", "Cabo Verde", "Costa de marfil", "Croacia", "Cuba", "Dinamarca", "Eslovaquia", "Eslovenia", "Estonia", "Etiopía", "Francia", "Georgia", "Grecia", "Guayana", "Holanda", "Honduras", "Hungría", "Irán", "Irak", "Irlanda del Norte", "Israel", "Italia", "Kazajstán", "Kenia", "Kirguistán", "Kuwait", "Letonia", "Liberia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Mónaco", "Mongolia", "Montenegro", "Marruecos", "República de Moldova", "Níger", "Nigeria", "Noruega", "Omán", "Pakistán", "Palestina", "Perú", "Polonia", "Portugal", "Qatar", "Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo", "Rumania", "Rusia", "San Marino", "Senegal", "Serbia", "Seychelles", "Sudáfrica", "Suecia", "Suiza", "Tayikistán", "Tailandia", "Túnez", "Turquía", "Turkmenistán", "Ucrania", "Uruguay", "Uzbekistán", "Vietnam", "Zimbabue"
+    ];
+
+    function mostrarConvenio() {
+        const paisCompleto = document.getElementById('paises').value;
+        const pais = paisCompleto.split('-')[0];
+        const resultado = document.getElementById('resultado');
+
+        let convenioGinebra = paisesGinebra.includes(pais);
+        let convenioViena = paisesViena.includes(pais);
+
+        if (pais) {
+            if (pais === "Venezuela") {
+                resultado.innerHTML = `
+                    <div class="p-4 rounded-lg bg-green-100 border border-green-400">
+                        <p class="text-green-700 text-center font-bold">
+                            ¡Sí! ${pais} puede emitir PIC.                        </p>
+                        <p class="text-green-700 text-center mt-2">
+                            Se rige por el convenio de <span class="font-semibold">Ginebra de 1949</span>, si bien solo expiden Certificado a efectos consulares con Apostilla.
+                        </p>
+                    </div>
+                `;
+            } else if (convenioGinebra && convenioViena) {
+                resultado.innerHTML = `
+                    <div class="p-4 rounded-lg bg-green-100 border border-green-400">
+                        <p class="text-green-700 text-center font-bold">
+                            ¡Sí! ${pais} puede emitir PIC.
+                        </p>
+                        <p class="text-green-700 text-center mt-2">
+                            Se rige por los convenios de <span class="font-semibold">Ginebra de 1949 y Viena de 1968</span>.
+                        </p>
+                    </div>
+                `;
+            } else if (convenioGinebra) {
+                resultado.innerHTML = `
+                    <div class="p-4 rounded-lg bg-green-100 border border-green-400">
+                        <p class="text-green-700 text-center font-bold">
+                            ¡Sí! ${pais} puede emitir PIC.                        </p>
+                        <p class="text-green-700 text-center mt-2">
+                            Se rige por el convenio de <span class="font-semibold">Ginebra de 1949</span>.
+                        </p>
+                    </div>
+                `;
+            } else if (convenioViena) {
+                resultado.innerHTML = `
+                    <div class="p-4 rounded-lg bg-green-100 border border-green-400">
+                        <p class="text-green-700 text-center font-bold">
+                            ¡Sí! ${pais} puede emitir PIC.                        </p>
+                        <p class="text-green-700 text-center mt-2">
+                            Se rige por el convenio de <span class="font-semibold">Viena de 1968</span>.
+                        </p>
+                    </div>
+                `;
+            } else {
+                resultado.innerHTML = `
+                    <div class="p-4 rounded-lg bg-red-100 border border-red-400">
+                        <p class="text-red-700 text-center font-bold">
+                            No se encontró información para ${pais}.
+                        </p>
+                    </div>
+                `;
+            }
+        } else {
+            resultado.innerHTML = "";
+        }
+    }
+</script>
+
+</body>
+</html>
