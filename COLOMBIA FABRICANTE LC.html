@@ -24,7 +24,7 @@
       outline: none;
       flex: 1;
       text-transform: uppercase;
-      text-align: center; /* Alineado al centro para un look más limpio */
+      text-align: center;
     }
   </style>
 </head>
@@ -45,21 +45,19 @@
 </h1>
 
 <p class="text-center mt-2 px-4">
-    Introduce el número del código LC:
+    Selecciona un código LC para ver el fabricante:
 </p>
 
 <div class="w-11/12 max-w-md mx-auto mt-4">
   <img src="logocolombia.png" alt="Logo Colombia" class="w-full">
 </div>
 
-<div class="input-wrapper w-11/12 max-w-md mx-auto mt-4">
-  <span class="input-prefix">LC</span>
-  <input id="numero" type="text" class="input-number" placeholder="01" maxlength="2">
+<div class="w-11/12 max-w-md mx-auto mt-4">
+  <select id="fabricanteSelect" onchange="buscarFabricante(this.value)"
+          class="block mx-auto mt-4 p-2 text-base w-full border border-gray-300 rounded-lg">
+    <option value="">-- Seleccionar código LC --</option>
+  </select>
 </div>
-
-<button onclick="buscarFabricante()" class="block mx-auto mt-4 w-11/12 max-w-md bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-md">
-  Buscar
-</button>
 
 <div id="resultado" class="w-11/12 max-w-md mx-auto mt-6 text-lg font-semibold text-gray-800 text-center"></div>
 
@@ -92,23 +90,28 @@
     "LC12": "MUVA S.A.S."
   };
 
-  function buscarFabricante() {
-    const num = document.getElementById("numero").value.trim().padStart(2, '0');
-    const codigo = `LC${num.toUpperCase()}`;
-    const resultado = document.getElementById("resultado");
-    if (fabricantes[codigo]) {
-      resultado.textContent = `Fabricante: ${fabricantes[codigo]}`;
-    } else {
-      resultado.textContent = "Código no encontrado. Verifica el número ingresado.";
-    }
+  const fabricanteSelect = document.getElementById('fabricanteSelect');
+  const resultado = document.getElementById("resultado");
+
+  function populateSelect() {
+      const sortedKeys = Object.keys(fabricantes).sort();
+      sortedKeys.forEach(key => {
+          const option = document.createElement('option');
+          option.value = key;
+          option.textContent = key;
+          fabricanteSelect.appendChild(option);
+      });
   }
-  // Permitir que Enter dispare la búsqueda
-  document.getElementById("numero").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-      buscarFabricante();
-    }
-  });
+
+  function buscarFabricante(codigo) {
+      if (codigo && fabricantes[codigo]) {
+          resultado.textContent = `Fabricante: ${fabricantes[codigo]}`;
+      } else {
+          resultado.textContent = "";
+      }
+  }
+
+  document.addEventListener('DOMContentLoaded', populateSelect);
 </script>
 </body>
-
 </html>
