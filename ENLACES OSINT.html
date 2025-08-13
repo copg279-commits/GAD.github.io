@@ -6,48 +6,6 @@
     <title>Buscador de Enlaces por País</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .combobox {
-            position: relative;
-            width: 100%;
-        }
-        .combobox-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 1rem;
-            outline: none;
-            cursor: pointer;
-        }
-        .combobox-input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-        }
-        .combobox-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            max-height: 200px;
-            overflow-y: auto;
-            background-color: white;
-            border: 1px solid #d1d5db;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            display: none;
-        }
-        .combobox-item {
-            padding: 12px;
-            text-align: left;
-            cursor: pointer;
-            font-size: 1rem;
-            color: #4b5563;
-        }
-        .combobox-item:hover {
-            background-color: #e5e7eb;
-        }
         .modal {
             display: none;
             position: fixed;
@@ -99,11 +57,10 @@
             Introduce el nombre de un país para encontrar sus enlaces.
         </p>
         
-        <div id="comboboxWrapper" class="combobox">
-            <input type="text" id="searchInputPais" class="combobox-input" placeholder="--Seleccionar País--" readonly>
-            <div id="countryDropdown" class="combobox-dropdown">
-            </div>
-        </div>
+        <select id="paises" onchange="buscar(this.value)"
+                class="block mx-auto mt-4 p-2 text-base w-11/12 max-w-md border border-gray-300 rounded-lg">
+            <option value="">-- Seleccionar país --</option>
+            </select>
     </div>
     
     <div id="linkList" class="mt-6 p-4 bg-white shadow rounded-lg w-11/12 max-w-md mx-auto text-left" style="display:none;">
@@ -1047,42 +1004,32 @@
 ]
 };
 
-        const searchInputPais = document.getElementById('searchInputPais');
-        const countryDropdown = document.getElementById('countryDropdown');
         const linkList = document.getElementById('linkList');
         const linksContainer = document.getElementById('linksContainer');
         const resultsTitle = document.getElementById('resultsTitle');
-        const comboboxWrapper = document.getElementById('comboboxWrapper');
+        const paisesSelect = document.getElementById('paises');
 
-        let allCountries = Object.keys(paisesData).sort();
-
-        function populateDropdown(filter = '') {
-            countryDropdown.innerHTML = '';
-            const filteredCountries = allCountries.filter(country => 
-                country.toLowerCase().includes(filter.toLowerCase())
-            );
-            
-            if (filteredCountries.length > 0) {
-                filteredCountries.forEach(country => {
-                    const item = document.createElement('div');
-                    item.classList.add('combobox-item');
-                    item.textContent = country;
-                    item.onclick = (e) => {
-                        e.stopPropagation();
-                        searchInputPais.value = country;
-                        countryDropdown.style.display = 'none';
-                        buscar(country);
-                    };
-                    countryDropdown.appendChild(item);
-                });
-                countryDropdown.style.display = 'block';
-            } else {
-                countryDropdown.style.display = 'none';
-            }
+        // Función para llenar el menú desplegable con la lista de países
+        function populateSelect() {
+            const sortedCountries = Object.keys(paisesData).sort();
+            sortedCountries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                paisesSelect.appendChild(option);
+            });
         }
+
+        // Llama a la función para llenar el menú al cargar la página
+        document.addEventListener('DOMContentLoaded', populateSelect);
 
         function buscar(pais) {
             linksContainer.innerHTML = '';
+            if (!pais) {
+                linkList.style.display = 'none';
+                return;
+            }
+
             linkList.style.display = 'block';
             let results = paisesData[pais];
             let title = `Enlaces de ${pais}`;
@@ -1104,29 +1051,10 @@
             }
         }
 
-        searchInputPais.addEventListener('click', (e) => {
-            e.preventDefault();
-            populateDropdown(e.target.value);
-            e.target.select();
-        });
-        
-        searchInputPais.addEventListener('input', (e) => {
-            populateDropdown(e.target.value);
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!comboboxWrapper.contains(e.target)) {
-                countryDropdown.style.display = 'none';
-            }
-        });
-
         function volverAtras() {
             linkList.style.display = 'none';
-            searchInputPais.value = '';
-            searchInputPais.placeholder = '--Seleccionar País--';
+            paisesSelect.value = ''; // Resetea la selección
         }
-
-        searchInputPais.placeholder = '--Seleccionar País--';
     </script>
 </body>
 </html>
