@@ -18,6 +18,7 @@
             text-align: center;
             font-size: 1rem;
             outline: none;
+            cursor: pointer;
         }
         .combobox-input:focus {
             border-color: #2563eb;
@@ -99,7 +100,7 @@
         </p>
         
         <div id="comboboxWrapper" class="combobox">
-            <input type="text" id="searchInputPais" class="combobox-input" placeholder="Introduzca país...">
+            <input type="text" id="searchInputPais" class="combobox-input" placeholder="--Seleccionar País--" readonly>
             <div id="countryDropdown" class="combobox-dropdown">
             </div>
         </div>
@@ -117,7 +118,7 @@
     </div>
 
     <div class="mt-8 flex justify-center">
-    <button onclick="window.location.href='index.html'"
+    <button onclick="window.location.href='_MENU PRINCIPAL_.html'"
             class="w-11/12 max-w-md p-4 bg-yellow-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-yellow-400 transition">
         MENÚ PRINCIPAL
     </button>
@@ -1089,26 +1090,28 @@
             resultsTitle.textContent = title;
 
             if (results && results.length > 0) {
-results.forEach(link => {
-    const linkDiv = document.createElement('a');
-    linkDiv.href = link.url;
-    linkDiv.target = "_blank";
-    linkDiv.rel = "noreferrer"; // <-- ¡Añade esta línea!
-    linkDiv.classList.add('bg-white', 'p-4', 'shadow-md', 'rounded-lg', 'mb-2', 'cursor-pointer', 'hover:bg-gray-50', 'block');
-    linkDiv.innerHTML = `<h3 class="font-bold text-blue-600">${link.nombre}</h3><p class="text-sm text-gray-600">${link.descripcion}</p>`;
-    linksContainer.appendChild(linkDiv);
-});
+                results.forEach(link => {
+                    const linkDiv = document.createElement('a');
+                    linkDiv.href = link.url;
+                    linkDiv.target = "_blank";
+                    linkDiv.rel = "noreferrer";
+                    linkDiv.classList.add('bg-white', 'p-4', 'shadow-md', 'rounded-lg', 'mb-2', 'cursor-pointer', 'hover:bg-gray-50', 'block');
+                    linkDiv.innerHTML = `<h3 class="font-bold text-blue-600">${link.nombre}</h3><p class="text-sm text-gray-600">${link.descripcion}</p>`;
+                    linksContainer.appendChild(linkDiv);
+                });
             } else {
                 linksContainer.innerHTML = `<p class="text-center text-gray-500">No se encontraron enlaces para la búsqueda.</p>`;
             }
         }
 
-        searchInputPais.addEventListener('input', (e) => {
+        searchInputPais.addEventListener('click', (e) => {
+            e.preventDefault();
             populateDropdown(e.target.value);
+            e.target.select();
         });
         
-        searchInputPais.addEventListener('focus', () => {
-            populateDropdown(searchInputPais.value);
+        searchInputPais.addEventListener('input', (e) => {
+            populateDropdown(e.target.value);
         });
 
         document.addEventListener('click', (e) => {
@@ -1120,11 +1123,10 @@ results.forEach(link => {
         function volverAtras() {
             linkList.style.display = 'none';
             searchInputPais.value = '';
+            searchInputPais.placeholder = '--Seleccionar País--';
         }
+
+        searchInputPais.placeholder = '--Seleccionar País--';
     </script>
 </body>
-
 </html>
-
-
-
