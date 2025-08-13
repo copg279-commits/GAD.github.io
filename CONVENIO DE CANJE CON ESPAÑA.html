@@ -6,12 +6,14 @@
     <title>Canje de Permisos de Conducir con España</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @media (max-width: 767px) {
-            .full-content {
-                display: block;
-            }
-        }
-    </style>
+            .flag-button-spain {
+        background: linear-gradient(to top, #c60b1e 0%, #c60b1e 33%, #ffc400 33%, #ffc400 66%, #c60b1e 66%, #c60b1e 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+  </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col pb-16">
 
@@ -77,7 +79,7 @@
 
 <div class="mt-8 flex justify-center">
     <button onclick="window.location.href='index.html'"
-            class="w-11/12 max-w-md p-4 bg-yellow-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-yellow-400 transition">
+            class="w-11/12 max-w-md p-4 text-gray-800 font-bold rounded-lg shadow-md transition flag-button-spain">
         MENÚ PRINCIPAL
     </button>
 </div>
