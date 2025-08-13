@@ -1089,14 +1089,15 @@
             resultsTitle.textContent = title;
 
             if (results && results.length > 0) {
-                results.forEach(link => {
-                    const linkDiv = document.createElement('a');
-                    linkDiv.href = link.url;
-                    linkDiv.target = "_blank";
-                    linkDiv.classList.add('bg-white', 'p-4', 'shadow-md', 'rounded-lg', 'mb-2', 'cursor-pointer', 'hover:bg-gray-50', 'block');
-                    linkDiv.innerHTML = `<h3 class="font-bold text-blue-600">${link.nombre}</h3><p class="text-sm text-gray-600">${link.descripcion}</p>`;
-                    linksContainer.appendChild(linkDiv);
-                });
+results.forEach(link => {
+    const linkDiv = document.createElement('a');
+    linkDiv.href = link.url;
+    linkDiv.target = "_blank";
+    linkDiv.rel = "noreferrer"; // <-- ¡Añade esta línea!
+    linkDiv.classList.add('bg-white', 'p-4', 'shadow-md', 'rounded-lg', 'mb-2', 'cursor-pointer', 'hover:bg-gray-50', 'block');
+    linkDiv.innerHTML = `<h3 class="font-bold text-blue-600">${link.nombre}</h3><p class="text-sm text-gray-600">${link.descripcion}</p>`;
+    linksContainer.appendChild(linkDiv);
+});
             } else {
                 linksContainer.innerHTML = `<p class="text-center text-gray-500">No se encontraron enlaces para la búsqueda.</p>`;
             }
@@ -1124,5 +1125,6 @@
 </body>
 
 </html>
+
 
 
