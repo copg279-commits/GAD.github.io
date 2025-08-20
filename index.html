@@ -3,97 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Principal GAD</title>
+    <title>Menú Principal de Archivos HTML - GAD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @media (max-width: 767px) {
-            .full-content {
-                display: block;
+        /* Estilos personalizados para el cuerpo y el contenedor principal */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Fondo gris claro */
+            display: flex;
+            flex-direction: column; /* Organiza los elementos en columna */
+            min-height: 100vh; /* Altura mínima de la vista */
+            min-height: 100svh; /* Usa svh para mejor ajuste en móviles, teniendo en cuenta las barras del navegador */
+            margin: 0;
+            padding: 0; /* Reinicia el padding global */
+            box-sizing: border-box; /* Incluye padding y borde en el tamaño total */
+            overflow-y: hidden; /* Oculta el scroll si la página se desborda ligeramente */
+            -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+        }
+        /* Ajuste para que el contenido principal ocupe el espacio restante */
+        .main-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra horizontalmente el contenido */
+            flex-grow: 1; /* Permite que el contenedor crezca para empujar el footer hacia abajo */
+            width: 100%; /* Asegura que ocupe todo el ancho disponible */
+            padding: 0px; /* Eliminado padding del wrapper */
+            box-sizing: border-box;
+        }
+        /* Ajuste para el contenedor blanco principal del menú */
+        .menu-card {
+            background-color: white;
+            padding: 0.5rem; /* Padding uniforme reducido para la tarjeta blanca */
+            border-radius: 0.75rem; /* Rounded-xl en Tailwind */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-lg en Tailwind */
+            width: 100%; /* El card siempre ocupará el 100% de su contenedor */
+            display: flex; /* Usamos flexbox para el contenido interno de la tarjeta */
+            flex-direction: column;
+            flex-grow: 1; /* Permite que la tarjeta se estire para llenar el espacio */
+        }
+
+        /* Ajuste para el título del menú */
+        h1 {
+            margin-top: 0; /* Elimina el margen superior */
+            margin-bottom: 0; /* ¡Eliminado el margen inferior! */
+            font-size: 1.8rem; /* Tamaño de fuente para mejor legibilidad en móvil */
+            line-height: 1.2; /* Reduce el interlineado del título */
+            padding-top: 0.5rem; /* Pequeño padding interno para el título */
+            padding-bottom: 0.5rem; /* Pequeño padding interno para el título */
+        }
+        @media (min-width: 640px) { /* Para pantallas más grandes que 'sm' (small) */
+            .menu-card {
+                padding: 1rem; /* Padding restaurado y uniforme en pantallas grandes */
+            }
+            h1 {
+                margin-top: 1rem; /* Margen superior adecuado en pantallas grandes */
+                margin-bottom: 1rem; /* Margen inferior adecuado */
+                font-size: 3rem; /* Tamaño de fuente original para desktop */
             }
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col pb-16">
+<body class="bg-gray-100">
 
-<header class="bg-blue-600 w-full flex justify-center items-center py-2">
-    <div class="w-40 h-40 rounded-full overflow-hidden shadow-lg">
-        <img
-            src="logogad.png"
-            alt="Logo GAD"
-            class="w-full h-full object-cover block"
-        >
+    <header class="bg-blue-600 w-full flex justify-center items-center py-3 shadow-md">
+        <div class="w-28 h-28 rounded-full overflow-hidden shadow-lg">
+            <img
+                src="logogad.png"
+                alt="Logo GAD"
+                class="w-full h-full object-cover block"
+            >
+        </div>
+    </header>
+
+    <div class="main-content-wrapper px-4 sm:px-8 lg:px-12">
+        <div class="menu-card">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-800">
+                Menú de Herramientas GAD
+            </h1>
+
+            <div class="grid grid-cols-2 gap-3 mt-2">
+                <a href="ENLACES OSINT.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">ENLACES POR PAISES</span>
+                </a>
+                <a href="index PERMISOS DE CONDUCIR.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">PERMISOS DE CONDUCIR</span>
+                </a>
+                <a href="index NÚMEROS DE SERIE.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">NÚMEROS DE SERIE</span>
+                </a>
+                <a href="index VEHÍCULOS.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">VEHÍCULOS</span>
+                </a>
+                <a href="archivo5.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-400 hover:bg-blue-500 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">EN CONSTRUCCIÓN</span>
+                </a>
+                <a href="archivo6.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-400 hover:bg-blue-500 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">EN CONSTRUCCIÓN</span>
+                </a>
+                <a href="archivo7.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-400 hover:bg-blue-500 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">EN CONSTRUCCIÓN</span>
+                </a>
+                <a href="archivo8.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-400 hover:bg-blue-500 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">EN CONSTRUCCIÓN</span>
+                </a>
+                <a href="archivo9.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-400 hover:bg-blue-500 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">EN CONSTRUCCIÓN</span>
+                </a>
+                <a href="archivo10.html" class="flex items-center justify-center p-4 lg:p-6 bg-blue-400 hover:bg-blue-500 text-white font-bold rounded-lg shadow-md transition-all duration-300 ease-in-out text-lg lg:text-xl">
+                    <span class="text-center">EN CONSTRUCCIÓN</span>
+                </a>
+            </div>
+        </div>
     </div>
-</header>
 
-<h1 class="text-black text-center mt-6 text-xl font-bold px-4">
-    Menú de Herramientas GAD
-</h1>
-
-<div class="grid grid-cols-2 md:grid-cols-5 gap-4 p-4 mt-8 w-11/12 max-w-7xl mx-auto">
-    <button onclick="window.location.href='ENLACES OSINT.html'"
-            class="p-4 bg-green-500 text-white font-bold rounded-lg shadow-md hover:bg-green-600 transition">
-        ENLACES OSINT
-    </button>
-    <button onclick="window.location.href='ARGENTINA DNI.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        ARGENTINA DNI
-    </button>
-    <button onclick="window.location.href='COLOMBIA FABRICANTE LC.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        COLOMBIA FABRICANTE
-    </button>
-    <button onclick="window.location.href='FRANCIA CPI ORDEN.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        FRANCIA CPI ORDEN
-    </button>
-    <button onclick="window.location.href='UCRANIA Calculadora 213 días.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        UCRANIA CALCULADORA 213 DÍAS
-    </button>
-    <button onclick="window.location.href='VENEZUELA Nº LICENCIA.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        VENEZUELA Nº LICENCIA
-    </button>
-    <button onclick="window.location.href='CONVENIO DE CANJE CON ESPAÑA.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        CONVENIO DE CANJE
-    </button>
-    <button onclick="window.location.href='EQUIVALENCIAS PNC USA-ESPAÑA.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        EQUIVALENCIAS PNC USA-ESPAÑA
-    </button>
-     <button onclick="window.location.href='EQUIVALENCIAS PNC LATINO AMERICA-ESPAÑA.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        EQUIVALENCIAS PNC LATINO AMERICA-ESPAÑA
-    </button>
-        <button onclick="window.location.href='CÓDIGOS ARMONIZADOS PNC.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        CÓDIGOS ARMONIZADOS PNC
-    </button>
-    <button onclick="window.location.href='ITV FRECUENCIA UE.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        ITV FRECUENCIA UE
-    </button>
-    <button onclick="window.location.href='PAISES QUE EXPIDEN PIC.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        PAISES QUE PUEDEN EXPEDIR PIC
-    </button>
-        <button onclick="window.location.href='VISADO.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        PAISES QUE PRECISAN VISADO
-    </button>
-    <button onclick="window.location.href='SISTEMA DE SEGURO.html'"
-            class="p-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition">
-        SISTEMA DE SEGURO
-    </button>
-</div>
-
-<footer class="mt-auto text-center py-6 bg-gray-200">
-    <hr class="border-t border-gray-400 w-11/12 max-w-md mx-auto mb-4">
-    <p class="font-bold">GRUPO DE ANÁLISIS DOCUMENTAL</p>
-    <p class="font-bold">POLICÍA LOCAL DE ALICANTE</p>
-    <p>GAD - Todos los derechos reservados</p>
-</footer>
+    <footer class="w-full mt-2 text-center py-3 bg-gray-200 shadow-inner text-sm sm:text-base">
+        <hr class="border-t border-gray-400 w-11/12 max-w-md mx-auto mb-1">
+        <p class="font-bold text-gray-700 leading-tight">GRUPO DE ANÁLISIS DOCUMENTAL</p>
+        <p class="font-bold text-gray-700 leading-tight">POLICÍA LOCAL DE ALICANTE</p>
+        <p class="text-gray-600 leading-tight">&copy; GAD - Todos los derechos reservados</p>
+    </footer>
 
 </body>
 </html>
